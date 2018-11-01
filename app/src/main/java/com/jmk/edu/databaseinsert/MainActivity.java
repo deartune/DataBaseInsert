@@ -1,6 +1,7 @@
 package com.jmk.edu.databaseinsert;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,18 +32,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String city=editTextCity.getText().toString();
         EditText editTextCountry = (EditText) findViewById(R.id.editTextCountry);
         String country=editTextCountry.getText().toString();
-
         TextView textView=(TextView) findViewById(R.id.textView);
+
+
         switch(v.getId()){
             case R.id.buttonInsert :
 
                 mdb.execSQL("INSERT INTO jmk_country VALUES( null, '" + country + "', '" + city + " ');");
                 editTextCity.setText("");
                 editTextCountry.setText("");
-
+                int id;
                 break;
             case R.id.buttonRead :
-              //  textView.setText();
+                String query = "SELECT * FROM jmk_country";
+                Cursor cursor = mdb.rawQuery(query, null);
+                String str = "";
+
+                while (cursor.moveToNext()) {
+                    id = cursor.getInt(0);
+                    country = cursor.getString(cursor.getColumnIndex("country"));
+                    city = cursor.getString(2);
+                    str += (id + " : " + country + " - " + city + "\n");
+                }
+                if (str.length() > 0) {
+                    textView.setText(str);
+                } else {
+                    textView.setText("fail");}
                 break;
             case R.id.buttonUpdate :
                 break;
