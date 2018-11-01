@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         EditText editTextCity = (EditText) findViewById(R.id.editTextCity);
         String city=editTextCity.getText().toString();
         EditText editTextCountry = (EditText) findViewById(R.id.editTextCountry);
-        String country=editTextCity.getText().toString();
+        String country=editTextCountry.getText().toString();
 
         TextView textView=(TextView) findViewById(R.id.textView);
         switch(v.getId()){
